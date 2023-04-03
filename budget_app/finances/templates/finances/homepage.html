@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+Welcome to my site!
+{% endblock %}
+
+{% block content %}
+{% include 'includes/header.html' %}
+<h1>Cash flow:</h1>
+<p>Income total:
+    RON {{total_income.amount__sum}}</p>
+<p>Expenses total:
+    RON {{total_expenses.amount__sum}}</p>
+<p>Incomes & Expenses Report:
+RON {{budget_left}}</p>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+Delete spending
+{% endblock %}
+
+
+{% block content %}
+<h2>Delete Post</h2>
+
+<form method="POST">
+  {% csrf_token %}
+  <p>Are you sure that you want to delete the post "{{ spending.location}} {{ spending.description}}"?</p>
+  <div>
+    <button type="submit">Yes, Delete</button>
+    <a href="{% url 'finances:all-spendings' %}">Cancel</a>
+  </div>
+</form>
+
+{% endblock %}

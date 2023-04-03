@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+Add spending
+{% endblock %}
+
+{% block content %}
+{% include 'includes/header.html' %}
+
+
+<center>
+    <h2>{% if id %} Edit {% else %} New {% endif %} Spending</h2>
+    <br>
+    {% if submitted %}
+    Your spending was submitted!<br/><br/>
+    <a href="{% url 'finances:add-spending' %}"><input type="button" value="Another expense"
+                                                        class="btn btn-primary"></a>
+    {% else %}
+    <form action="" method=POST>
+        {% csrf_token %}
+
+        {{ form.as_p}}
+
+        <input type="submit" value="Submit" class="btn btn-danger">
+
+    </form>
+
+    {% endif %}
+</center>
+
+
+{% endblock %}

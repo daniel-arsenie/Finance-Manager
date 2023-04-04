@@ -7,6 +7,21 @@ from .forms import SpendingForm
 from .filters import SpendingFilter
 
 
+def pie_chart(request):
+    labels = []
+    data = []
+
+    queryset = Spending.objects.order_by('-amount')[:]
+    for spending in queryset:
+        labels.append(spending.category.name)
+        data.append(spending.amount)
+
+    return render(request, 'finances/pie_chart.html', {
+        'labels': labels,
+        'data': data,
+    })
+
+
 def delete_spending(request, id):
     post = get_object_or_404(Spending, id=id)
     context = {'post': post}
@@ -67,12 +82,8 @@ def index(request):
     budget_left = total_income['amount__sum'] - total_expenses['amount__sum']
     budget_total = Spending.objects.all().aggregate(Sum('amount'))
 
-    food_total = Spending.objects.filter(category='1').aggregate(Sum('amount'))
-
-    # total_food = Spending.objects.filter(category='shopping').aggregate(Sum('amount'))
     return render(request, 'finances/homepage.html', {'budget_left': budget_left,
                                                       'total_expenses': total_expenses,
                                                       'total_income': total_income,
                                                       "budget_total": budget_total,
-                                                      'food_total': food_total,
                                                       })

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'includes/header.html' %}
+<br>
+  <div id="container" style="width: 75%;">
+    <canvas id="pie-chart"></canvas>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <script>
+
+    var config = {
+      type: 'pie',
+      data: {
+        datasets: [{
+          data: {{ data|safe }},
+          backgroundColor: [
+            '#ffff00', '#00ccff', '#A9A9A9', '#ff6600', '#00ff00', '#ff00ff'
+          ],
+          label: 'Amount'
+        }],
+        labels: {{ labels|safe }}
+      },
+      options: {
+        responsive: true
+      }
+    };
+
+    window.onload = function() {
+      var ctx = document.getElementById('pie-chart').getContext('2d');
+      window.myPie = new Chart(ctx, config);
+    };
+
+  </script>
+{% endblock %}

@@ -3,7 +3,7 @@ from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Spending
-from .forms import SpendingForm, SpendingFilterForm
+from .forms import SpendingForm
 from .filters import SpendingFilter
 
 
@@ -52,7 +52,7 @@ def add_spending(request):
 
 # Create your views here.
 def all_spendings(request):
-    spending_filter = SpendingFilter(request.GET, queryset=Spending.objects.all())
+    spending_filter = SpendingFilter(request.GET, queryset=Spending.objects.all().order_by('-date_time'))
     context = {
         'form': spending_filter.form,
         'spendings_list': spending_filter.qs

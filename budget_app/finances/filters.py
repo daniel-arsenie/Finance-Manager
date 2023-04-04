@@ -11,12 +11,6 @@ class SpendingFilter(django_filters.FilterSet):
         lookup_expr='gte', label='From',
         widget=DateInput(attrs={'type': 'date', 'id': 'start_date'}))
 
-    o = OrderingFilter(
-        fields=(
-            ('date_time', 'date_time'),
-        )
-    )
-
     class Meta:
         model = Spending
         fields = ['paid_with', 'record_type', 'date_time']

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block page_title %}
 All Spendings
 {% endblock %}
@@ -8,19 +8,32 @@ All Spendings
 {% block content %}
 {% include 'includes/header.html' %}
 
-<h1>All records</h1>
 <br><br>
 
-<div class="container">
+<div class=" text-center">
+<div class="row">
+    <div class="col-2">
+        <center><h2>Filter records:</h2></center>
+        <br>
+        <form method = 'GET' action="{% url 'finances:all-spendings' %}">
+            {{ form.as_p }}
+        <input type="submit" value="Submit" class="btn btn-primary">
+        </form>
+    </div>
+
+            <div class="col-10">
+                <div class="container">
+                    <h2>All records:</h2>
+                    <br>
 
 <table class="table table-borderless table-hover">
     <thead>
     <tr>
         <th>Date</th>
-        <th>Category</th>
-        <th>Record type</th>
-        <th>Details</th>
-        <th>Amount</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
         <th></th>
     </tr>
     </thead>
@@ -32,7 +45,14 @@ All Spendings
         onclick="window.location='{% url 'finances:edit-spending' spending.id %}'">
         <td>{{ spending.date_time|date:"d M, Y" }}</td>
         <td>{{ spending.category }}</td>
-        <td>{{ spending.record_type }}</td>
+        <td>
+            {% if spending.paid_with.name == 'ING' %}
+            <strong class="text-warning">{{ spending.paid_with }}</strong>
+            {% else %}
+            <strong class="text-primary">{{ spending.paid_with }}</strong>
+            {% endif %}
+        </td>
+        <td>{{ spending.location }}</td>
         <td>{{ spending.description }}</td>
         <td>{% if spending.record_type == 'expense'%}
             <strong class="text-danger">-RON {{ spending.amount }}</strong>
@@ -41,7 +61,7 @@ All Spendings
             {% endif %}
         </td>
         <td><a href="{% url 'finances:delete-spending' spending.id %}">
-            <img src="https://cdn-icons-png.flaticon.com/512/3334/3334328.png" style="width:1.5rem;height:1.5rem;">
+            <img src="{% static 'finances/images/delete.png'%}" style="width:1.5rem;height:1.5rem;">
         </a></td>
     </tr>
     </tbody>
@@ -50,6 +70,11 @@ All Spendings
 </table>
 
 </div>
+            </div>
+  </div>
+</div>
+
+
 
 
 {% endblock %}

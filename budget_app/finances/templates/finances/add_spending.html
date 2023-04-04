@@ -9,6 +9,7 @@ Add spending
 
 
 <center>
+    <br>
     <h2>{% if id %} Edit {% else %} New {% endif %} Spending</h2>
     <br>
     {% if submitted %}
@@ -22,10 +23,9 @@ Add spending
         {{ form.as_p}}
 
         <input type="submit" value="Submit" class="btn btn-danger">
-
     </form>
-
     {% endif %}
+
 </center>
 
 

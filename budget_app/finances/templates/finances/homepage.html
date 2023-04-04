@@ -1,16 +1,60 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block page_title %}
 Welcome to my site!
 {% endblock %}
 
 {% block content %}
 {% include 'includes/header.html' %}
-<h1>Cash flow:</h1>
-<p>Income total:
-    RON {{total_income.amount__sum}}</p>
-<p>Expenses total:
-    RON {{total_expenses.amount__sum}}</p>
-<p>Incomes & Expenses Report:
-RON {{budget_left}}</p>
+<br>
+<center><h1>iBudget</h1></center>
+<br>
+<center><img src="{% static 'finances/images/homepage.png'%}" style="width:50rem;height:auto;">
+</center>
+<br><br>
+<center><h1>Cash flow:</h1></center>
+<br>
+<br>
+<div class="container text-center">
+  <div class="row">
+    <div class="col">
+
+    <p><h2>Income total:</h2>
+    <h4 class="text-success">RON {{total_income.amount__sum}}</h4>
+    </p>
+
+    </div>
+
+    <div class="col-6">
+    <p><h3>Incomes & Expenses Report:</h3>
+    <h4>RON {{budget_left}}</h4>
+    </p>
+    </div>
+
+    <div class="col">
+    <p><h2>Expenses total:</h2>
+    <h4 class="text-danger">RON {{total_expenses.amount__sum}} </h4>
+    </p>
+    </div>
+
+  </div>
+</div>
+
+<div class="progress" role="progressbar" aria-label="Default striped example" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 10%">{{ food_total.amount__sum }}</div>
+</div>
+<div class="progress" role="progressbar" aria-label="Success striped example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: 25%">test2</div>
+</div>
+<div class="progress" role="progressbar" aria-label="Info striped example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" style="width: 50%">test3</div>
+</div>
+<div class="progress" role="progressbar" aria-label="Warning striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" style="width: 75%">test4</div>
+</div>
+<div class="progress" role="progressbar" aria-label="Danger striped example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" style="width: 100%">t5</div>
+</div>
+
+
 {% endblock %}

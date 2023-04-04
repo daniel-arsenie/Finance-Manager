@@ -3,7 +3,9 @@ from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Spending
-from .forms import SpendingForm
+from .forms import SpendingForm, SpendingFilterForm
+from .filters import SpendingFilter
+
 
 def delete_spending(request, id):
     post = get_object_or_404(Spending, id=id)
@@ -14,6 +16,7 @@ def delete_spending(request, id):
     elif request.method == 'POST':
         post.delete()
         return redirect('finances:all-spendings')
+
 
 def edit_spending(request, id):
     post = get_object_or_404(Spending, id=id)
@@ -49,18 +52,27 @@ def add_spending(request):
 
 # Create your views here.
 def all_spendings(request):
-    spendings_list = Spending.objects.all().order_by('-date_time')
-    return render(request, 'finances/spending_list.html', {'spendings_list': spendings_list})
+    spending_filter = SpendingFilter(request.GET, queryset=Spending.objects.all())
+    context = {
+        'form': spending_filter.form,
+        'spendings_list': spending_filter.qs
+    }
+
+    return render(request, 'finances/spending_list.html', context)
 
 
 def index(request):
-    total_expenses = Spending.objects.filter(record_type='expense').aggregate(Sum('amount'))
     total_income = Spending.objects.filter(record_type='income').aggregate(Sum('amount'))
-
+    total_expenses = Spending.objects.filter(record_type='expense').aggregate(Sum('amount'))
     budget_left = total_income['amount__sum'] - total_expenses['amount__sum']
+    budget_total = Spending.objects.all().aggregate(Sum('amount'))
+
+    food_total = Spending.objects.filter(category='1').aggregate(Sum('amount'))
+
+    # total_food = Spending.objects.filter(category='shopping').aggregate(Sum('amount'))
     return render(request, 'finances/homepage.html', {'budget_left': budget_left,
                                                       'total_expenses': total_expenses,
                                                       'total_income': total_income,
+                                                      "budget_total": budget_total,
+                                                      'food_total': food_total,
                                                       })
-
-

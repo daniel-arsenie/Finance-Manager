@@ -22,21 +22,20 @@ Welcome to my site!
     <div class="col">
 
     <p><h2>Income total:</h2>
-    <h4 class="text-success">RON {{total_income.amount__sum}}</h4>
+    <h4 class="text-success">RON {{total_income.amount__sum|floatformat:2}}</h4>
     </p>
 
     </div>
 
     <div class="col-6">
     <p><h3>Incomes & Expenses Report:</h3>
-    <h4>RON {{budget_left}}</h4>
+    <h4>RON {{budget_left|floatformat:2}}</h4>
     </p>
     </div>
 
     <div class="col">
     <p><h2>Expenses total:</h2>
-    <h4 class="text-danger">RON {{total_expenses.amount__sum}} </h4>
-    </p>
+    <h4 class="text-danger">RON {{total_expenses.amount__sum|floatformat:2}} </h4>
     </div>
 
   </div>

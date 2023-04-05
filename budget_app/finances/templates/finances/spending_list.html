@@ -60,9 +60,11 @@ All Spendings
             <strong class="text-success">RON {{ spending.amount }}</strong>
             {% endif %}
         </td>
-        <td><a href="{% url 'finances:delete-spending' spending.id %}">
+        <td>
+            <a href="{% url 'finances:delete-spending' spending.id %}">
             <img src="{% static 'finances/images/delete.png'%}" style="width:1.5rem;height:1.5rem;">
-        </a></td>
+            </a>
+        </td>
     </tr>
     </tbody>
 

@@ -11,7 +11,7 @@ def pie_chart(request):
     labels = []
     data = []
 
-    queryset = Spending.objects.order_by('-amount')[:]
+    queryset = Spending.objects.order_by('-amount')[:6]
     for spending in queryset:
         labels.append(spending.category.name)
         data.append(spending.amount)
@@ -79,11 +79,16 @@ def all_spendings(request):
 def index(request):
     total_income = Spending.objects.filter(record_type='income').aggregate(Sum('amount'))
     total_expenses = Spending.objects.filter(record_type='expense').aggregate(Sum('amount'))
+    if total_income['amount__sum'] is None:
+        total_income['amount__sum'] = 0
+        budget_left = total_income['amount__sum'] - total_expenses['amount__sum']
+        return render(request, 'finances/homepage.html', {'budget_left': budget_left,
+                                                          'total_expenses': total_expenses,
+                                                          'total_income': total_income,
+                                                          })
     budget_left = total_income['amount__sum'] - total_expenses['amount__sum']
-    budget_total = Spending.objects.all().aggregate(Sum('amount'))
 
     return render(request, 'finances/homepage.html', {'budget_left': budget_left,
                                                       'total_expenses': total_expenses,
                                                       'total_income': total_income,
-                                                      "budget_total": budget_total,
                                                       })

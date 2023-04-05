@@ -6,14 +6,17 @@ Delete spending
 
 
 {% block content %}
-<h2>Delete Post</h2>
+{% include 'includes/header.html' %}
+<br>
+<center><h2>Delete Post</h2></center>
 
 <form method="POST">
   {% csrf_token %}
-  <p>Are you sure that you want to delete the post "{{ spending.location}} {{ spending.description}}"?</p>
+
+  <center>Are you sure that you want to delete this post?</center>
   <div>
-    <button type="submit">Yes, Delete</button>
-    <a href="{% url 'finances:all-spendings' %}">Cancel</a>
+    <button type="submit" class="btn btn-success">Yes, Delete</button>
+    <a class="btn btn-success" href="{% url 'finances:all-spendings' %}">Cancel</a>
   </div>
 </form>
 

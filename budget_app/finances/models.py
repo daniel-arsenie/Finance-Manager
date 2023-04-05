@@ -24,8 +24,8 @@ class BankAccount(models.Model):
 
 class Spending(models.Model):
     record_type = models.CharField(max_length=7, choices=RECORD_TYPE, default='other')
-    paid_with = models.ForeignKey(BankAccount, blank=True, null=True, on_delete=models.CASCADE)
-    amount = models.FloatField(default=0)
+    paid_with = models.ForeignKey(BankAccount, blank=True, null=True, verbose_name='Card', on_delete=models.CASCADE)
+    amount = models.FloatField()
     category = models.ForeignKey(Category, blank=True, null=True, on_delete=models.CASCADE)
     date_time = models.DateTimeField()
     location = models.CharField(max_length=18)

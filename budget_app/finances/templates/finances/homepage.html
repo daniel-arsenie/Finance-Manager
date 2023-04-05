@@ -11,9 +11,9 @@ Welcome to my site!
 <br>
 <center><h1>iBudget</h1></center>
 <br>
-<center><img src="{% static 'finances/images/homepage.png'%}" style="width:50rem;height:auto;">
+<center><img src="{% static 'finances/images/homepage.png'%}" style="width:45rem;height:auto;">
 </center>
-<br><br>
+<br>
 <center><h1>Cash flow:</h1></center>
 <br>
 <br>
@@ -28,9 +28,12 @@ Welcome to my site!
     </div>
 
     <div class="col-6">
-    <p><h3>Incomes & Expenses Report:</h3>
-    <h4>RON {{budget_left|floatformat:2}}</h4>
-    </p>
+      <div class="card">
+        <div class="card-body">
+        <h3>Incomes & Expenses Report:</h3>
+        <h4>RON {{budget_left|floatformat:2}}</h4>
+        </div>
+      </div>
     </div>
 
     <div class="col">
@@ -40,6 +43,16 @@ Welcome to my site!
 
   </div>
 </div>
+<br><br>
+<figure class="text-center">
+  <blockquote class="blockquote">
+    <p>A budget tells us what we can’t afford, but it doesn’t keep us from buying it.</p>
+  </blockquote>
+  <figcaption class="blockquote-footer">
+    <cite title="Source Title">William Feather</cite>
+  </figcaption>
+</figure>
+
 
 
 {% endblock %}

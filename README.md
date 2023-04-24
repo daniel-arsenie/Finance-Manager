@@ -4,7 +4,7 @@
 
 - Step 1:
 Install python 3\
-(https://www.python.org/downloads/)\
+(https://www.python.org/downloads/)<br/>
 After installing, check this by using the following command in the terminal:\
 `python3 --version`
 ###
@@ -12,7 +12,7 @@ After installing, check this by using the following command in the terminal:\
 
 - Step 2:Clone the git repo\
 click on the code and copy the url:\
-(https://github.com/daniel-arsenie/Finance-Manager.git)\
+(https://github.com/daniel-arsenie/Finance-Manager.git)<br/>
 Then open your terminal and navigate to the directory you wish to store the project and run the following commands:\
 `git clone https://github.com/REPONAME.git` \
 (replace the url your own url)

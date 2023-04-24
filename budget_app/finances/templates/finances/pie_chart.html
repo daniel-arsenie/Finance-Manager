@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block page_title %}
+Statistics
+{% endblock %}
+
 {% block content %}
 {% include 'includes/header.html' %}
 
@@ -17,7 +21,7 @@
         datasets: [{
           data: {{ data|safe }},
           backgroundColor: [
-            '#ffff00', '#00ccff', '#A9A9A9', '#ff6600', '#00ff00', '#ff00ff'
+            '#00ff00', '#ff0000', '#ffc800' ,'#dffc3a','#3afccc', '#3abbfc', '#A9A9A9', '#ffff00', '#00ccff', '#ff00ff',
           ],
           label: 'Amount'
         }],

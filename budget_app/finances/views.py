@@ -8,18 +8,27 @@ from .filters import SpendingFilter
 
 
 def pie_chart(request):
-    labels = []
-    data = []
 
-    queryset = Spending.objects.order_by('-amount')[:6]
-    for spending in queryset:
-        labels.append(spending.category.name)
-        data.append(spending.amount)
+    qs = Spending.objects.values('category__name').annotate(total_amount=Sum('amount')).order_by('category__name')
+
+    labels = [d['category__name'] for d in qs]
+    data = [d['total_amount'] for d in qs]
 
     return render(request, 'finances/pie_chart.html', {
         'labels': labels,
         'data': data,
     })
+
+
+# class ExpenseStructureView(TemplateView):
+#     template_name = 'finances/pie_chart.html'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         qs = Spending.objects.values('category').annotate(total_amount=Sum('amount'))
+#         context["categories"] = [d['category'] for d in qs]
+#         context["totals"] = [d['total_amount'] for d in qs]
+#         return context
 
 
 def delete_spending(request, id):

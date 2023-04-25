@@ -7,8 +7,8 @@ from .forms import SpendingForm
 from .filters import SpendingFilter
 
 
+# This is the view for the 'Statistics' page, here the backend is Python and frontend is JavaScript
 def pie_chart(request):
-
     qs = Spending.objects.values('category__name').annotate(total_amount=Sum('amount')).order_by('category__name')
 
     labels = [d['category__name'] for d in qs]
@@ -20,17 +20,7 @@ def pie_chart(request):
     })
 
 
-# class ExpenseStructureView(TemplateView):
-#     template_name = 'finances/pie_chart.html'
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         qs = Spending.objects.values('category').annotate(total_amount=Sum('amount'))
-#         context["categories"] = [d['category'] for d in qs]
-#         context["totals"] = [d['total_amount'] for d in qs]
-#         return context
-
-
+# This is the view for the 'Delete spending' page
 def delete_spending(request, id):
     post = get_object_or_404(Spending, id=id)
     context = {'post': post}
@@ -42,6 +32,7 @@ def delete_spending(request, id):
         return redirect('finances:all-spendings')
 
 
+# This is the view for the 'Edit spending' page, here I used Django Forms to edit the database entry
 def edit_spending(request, id):
     post = get_object_or_404(Spending, id=id)
 
@@ -59,6 +50,7 @@ def edit_spending(request, id):
             return render(request, 'finances/add_spending.html', {'form': form})
 
 
+# This is the view for the 'Add record' page, here I used Django Forms
 def add_spending(request):
     submitted = False
     if request.method == 'POST':
@@ -74,7 +66,7 @@ def add_spending(request):
     return render(request, 'finances/add_spending.html', {'form': form, 'submitted': submitted})
 
 
-# Create your views here.
+# This is the view for the 'All records' page
 def all_spendings(request):
     spending_filter = SpendingFilter(request.GET, queryset=Spending.objects.all().order_by('-date_time'))
     context = {
@@ -85,6 +77,7 @@ def all_spendings(request):
     return render(request, 'finances/spending_list.html', context)
 
 
+# This is the view for the 'Homepage'
 def index(request):
     total_income = Spending.objects.filter(record_type='income').aggregate(Sum('amount'))
     total_expenses = Spending.objects.filter(record_type='expense').aggregate(Sum('amount'))

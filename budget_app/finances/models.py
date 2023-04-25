@@ -6,6 +6,9 @@ from django.db import models
 from django.core.validators import RegexValidator
 
 # Create your models here.
+# Used choices and different Models for Category and BankAccount, in case in the future we will add
+# support for more cards or categories
+# Validators were used on Fields that allow text, so that it will prevent hacking attempts or bad inputs.
 
 
 RECORD_TYPE = [

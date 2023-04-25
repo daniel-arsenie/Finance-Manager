@@ -4,6 +4,7 @@ from .models import Spending
 
 
 # Create a spending form
+# Used ModelForm because it has built-in functions to help in using forms (it does the GET and POST by itself)
 class SpendingForm(ModelForm):
     class Meta:
         model = Spending

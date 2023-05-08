@@ -26,6 +26,7 @@ class Category(models.Model):
 
 class BankAccount(models.Model):
     name = models.CharField('Bank Account Name', max_length=15)
+    balance = models.FloatField(default=0)
 
     def __str__(self):
         return self.name
